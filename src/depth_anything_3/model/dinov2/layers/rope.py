@@ -180,7 +180,10 @@ class RotaryPositionEmbedding2D(nn.Module):
         feature_dim = tokens.size(-1) // 2
 
         # Get frequency components
-        max_position = int(positions.max()) + 1
+        if torch.onnx.is_in_onnx_export():
+            max_position = positions.shape[1]
+        else:
+            max_position = int(positions.max()) + 1
         cos_comp, sin_comp = self._compute_frequency_components(
             feature_dim, max_position, tokens.device, tokens.dtype
         )

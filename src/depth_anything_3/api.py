@@ -123,11 +123,17 @@ class DepthAnything3(nn.Module, PyTorchModelHubMixin):
             Dictionary containing model predictions
         """
         # Determine optimal autocast dtype
-        autocast_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+        autocast_dtype = torch.float16
         with torch.no_grad():
             with torch.autocast(device_type=image.device.type, dtype=autocast_dtype):
                 return self.model(
-                    image, extrinsics, intrinsics, export_feat_layers, infer_gs, use_ray_pose, ref_view_strategy
+                    image,
+                    extrinsics,
+                    intrinsics,
+                    export_feat_layers,
+                    infer_gs,
+                    use_ray_pose,
+                    ref_view_strategy,
                 )
 
     def inference(

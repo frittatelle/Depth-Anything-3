@@ -40,6 +40,7 @@ All models are trained exclusively on **public academic datasets**.
 
 
 ## 📰 News
+- **11-12-2025:** 🚀 New models and [**DA3-Streaming**](da3_streaming/README.md) released! Handle ultra-long video sequence inference with less than 12GB GPU memory via sliding-window streaming inference. Special thanks to [Kai Deng](https://github.com/DengKaiCQ) for his contribution to DA3-Streaming!
 - **08-12-2025:** 📊 [Benchmark evaluation pipeline](docs/BENCHMARK.md) released! Evaluate pose estimation & 3D reconstruction on 5 datasets.
 - **30-11-2025:** Add [`use_ray_pose`](#use-ray-pose) and [`ref_view_strategy`](docs/funcs/ref_view_strategy.md) (reference view selection for multi-view inputs).   
 - **25-11-2025:** Add [Awesome DA3 Projects](#-awesome-da3-projects), a community-driven section featuring DA3-based applications.
@@ -207,12 +208,17 @@ Generally, you should observe that DA3-LARGE achieves comparable results to VGGT
 
 The Nested series uses an Any-view model to estimate pose and depth, and a monocular metric depth estimator for scaling. 
 
+⚠️ Models with the `-1.1` suffix are retrained after fixing a training bug; prefer these refreshed checkpoints. The original `DA3NESTED-GIANT-LARGE`, `DA3-GIANT`, and `DA3-LARGE` remain available but are deprecated. You could expect much better performance for street scenes with the `-1.1` models.
+
 | 🗃️ Model Name                  | 📏 Params | 📊 Rel. Depth | 📷 Pose Est. | 🧭 Pose Cond. | 🎨 GS | 📐 Met. Depth | ☁️ Sky Seg | 📄 License     |
 |-------------------------------|-----------|---------------|--------------|---------------|-------|---------------|-----------|----------------|
 | **Nested** | | | | | | | | |
+| [DA3NESTED-GIANT-LARGE-1.1](https://huggingface.co/depth-anything/DA3NESTED-GIANT-LARGE-1.1)  | 1.40B     | ✅             | ✅            | ✅             | ✅     | ✅             | ✅         | CC BY-NC 4.0   |
 | [DA3NESTED-GIANT-LARGE](https://huggingface.co/depth-anything/DA3NESTED-GIANT-LARGE)  | 1.40B     | ✅             | ✅            | ✅             | ✅     | ✅             | ✅         | CC BY-NC 4.0   |
 | **Any-view Model** | | | | | | | | |
+| [DA3-GIANT-1.1](https://huggingface.co/depth-anything/DA3-GIANT-1.1)                     | 1.15B     | ✅             | ✅            | ✅             | ✅     |               |           | CC BY-NC 4.0   |
 | [DA3-GIANT](https://huggingface.co/depth-anything/DA3-GIANT)                     | 1.15B     | ✅             | ✅            | ✅             | ✅     |               |           | CC BY-NC 4.0   |
+| [DA3-LARGE-1.1](https://huggingface.co/depth-anything/DA3-LARGE-1.1)                     | 0.35B     | ✅             | ✅            | ✅             |       |               |           | CC BY-NC 4.0     |
 | [DA3-LARGE](https://huggingface.co/depth-anything/DA3-LARGE)                     | 0.35B     | ✅             | ✅            | ✅             |       |               |           | CC BY-NC 4.0     |
 | [DA3-BASE](https://huggingface.co/depth-anything/DA3-BASE)                     | 0.12B     | ✅             | ✅            | ✅             |       |               |           | Apache 2.0     |
 | [DA3-SMALL](https://huggingface.co/depth-anything/DA3-SMALL)                     | 0.08B     | ✅             | ✅            | ✅             |       |               |           | Apache 2.0     |
@@ -259,6 +265,55 @@ A community-curated list of Depth Anything 3 integrations across 3D tools, creat
 
 - [VideoDepthViewer3D](https://github.com/amariichi/VideoDepthViewer3D): Streaming videos with DA3 metric depth to a Three.js/WebXR 3D viewer for VR/stereo playback.
 
+
+## 🧑‍💻 Official Codebase Core Contributors and Maintainers
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://bingykang.github.io/">
+        <img src="https://images.weserv.nl/?url=https://bingykang.github.io/images/bykang_homepage.jpeg?h=100&w=100&fit=cover&mask=circle&maxage=7d" width="100px;" alt=""/>
+      </a>
+        <br />
+        <sub><b>Bingyi Kang</b></sub>
+    </td>
+    <td align="center">
+      <a href="https://haotongl.github.io/">
+        <img src="https://images.weserv.nl/?url=https://haotongl.github.io/assets/img/prof_pic.jpg?h=100&w=100&fit=cover&mask=circle&maxage=7d" width="100px;" alt=""/>
+      </a>
+        <br />
+        <sub>Haotong Lin</sub>
+    </td>
+    <td align="center">
+      <a href="https://github.com/SiliChen321">
+        <img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/195901058?v=4&h=100&w=100&fit=cover&mask=circle&maxage=7d" width="100px;" alt=""/>
+      </a>
+        <br />
+        <sub>Sili Chen</sub>
+    </td>
+    <td align="center">
+      <a href="https://liewjunhao.github.io/">
+        <img src="https://images.weserv.nl/?url=https://liewjunhao.github.io/images/liewjunhao.png?h=100&w=100&fit=cover&mask=circle&maxage=7d" width="100px;" alt=""/>
+       </a>
+        <br />
+        <sub>Jun Hao Liew</sub>
+    </td>
+    <td align="center">
+      <a href="https://donydchen.github.io/">
+        <img src="https://images.weserv.nl/?url=https://donydchen.github.io/assets/img/profile.jpg?h=100&w=100&fit=cover&mask=circle&maxage=7d" width="100px;" alt=""/>
+      </a>
+        <br />
+        <sub>Donny Y. Chen</sub>
+    </td>
+    <td align="center">
+      <a href="https://github.com/DengKaiCQ">
+        <img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/59907452?v=4&h=100&w=100&fit=cover&mask=circle&maxage=7d" width="100px;" alt=""/>
+      </a>
+        <br />
+        <sub>Kai Deng</sub>
+    </td>
+  </tr>
+</table>
 
 ## 📝 Citations
 If you find Depth Anything 3 useful in your research or projects, please cite our work:

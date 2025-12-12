@@ -318,6 +318,13 @@ A community-curated list of Depth Anything 3 integrations across 3D tools, creat
 ## 📝 Citations
 If you find Depth Anything 3 useful in your research or projects, please cite our work:
 
+
+## Export to ONNX
+```
+python src/depth_anything_3/export.py --model-dir depth-anything/DA3-BASE --height 504 --width 378 --onnx-path ../../onnx/DA3-BASE-portrait.onnx
+```
+
+
 ```
 @article{depthanything3,
   title={Depth Anything 3: Recovering the visual space from any views},

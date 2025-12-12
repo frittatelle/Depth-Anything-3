@@ -92,9 +92,9 @@ def export_onnx(
     logger.info(f"Model parameters: {sum(p.numel() for p in api_model.parameters())/1e6:.2f}M")
 
     wrapper = EagleWrapper(api_model).to(device)
-    image = torch.zeros(3, height, width, device=device)
-    extrinsics = torch.zeros(4, 4, device=device)
-    intrinsics = torch.zeros(3, 3, device=device)
+    image = torch.zeros(3, height, width, device=device, dtype=torch.float32)
+    extrinsics = torch.zeros(4, 4, device=device, dtype=torch.float32)
+    intrinsics = torch.zeros(3, 3, device=device, dtype=torch.float32)
 
     with torch.no_grad():
         torch.onnx.export(

@@ -26,7 +26,7 @@ class EagleWrapper(nn.Module):
         super().__init__()
         self.model = model
 
-    def forward(self, image: torch.Tensor, extrinsics: torch.Tensor, intrinsics: torch.Tensor):
+    def forward(self, batch: torch.Tensor, extrinsics: torch.Tensor, intrinsics: torch.Tensor):
         """
         Single image --> B = 1, single view --> N = 1
 
@@ -35,12 +35,12 @@ class EagleWrapper(nn.Module):
         intrinsics: (3, 3) --> (1, 1, 3, 3)
         """
 
-        input_img = image.unsqueeze(0).unsqueeze(0)
-        input_extrinsics = extrinsics.unsqueeze(0).unsqueeze(0)
-        input_intrinsics = intrinsics.unsqueeze(0).unsqueeze(0)
+        input_batch = batch.unsqueeze(1)
+        input_extrinsics = extrinsics.unsqueeze(1)
+        input_intrinsics = intrinsics.unsqueeze(1)
 
         output = self.model(
-            input_img,
+            input_batch,
             extrinsics=input_extrinsics,
             intrinsics=input_intrinsics,
             export_feat_layers=[],
@@ -92,14 +92,14 @@ def export_onnx(
     logger.info(f"Model parameters: {sum(p.numel() for p in api_model.parameters())/1e6:.2f}M")
 
     wrapper = EagleWrapper(api_model).to(device)
-    image = torch.zeros(3, height, width, device=device, dtype=torch.float32)
-    extrinsics = torch.zeros(4, 4, device=device, dtype=torch.float32)
-    intrinsics = torch.zeros(3, 3, device=device, dtype=torch.float32)
+    batch = torch.zeros(batch_size, 3, height, width, device=device, dtype=torch.float32)
+    extrinsics = torch.zeros(batch_size, 4, 4, device=device, dtype=torch.float32)
+    intrinsics = torch.zeros(batch_size, 3, 3, device=device, dtype=torch.float32)
 
     with torch.no_grad():
         torch.onnx.export(
             wrapper,
-            (image, extrinsics, intrinsics),
+            (batch, extrinsics, intrinsics),
             onnx_path.as_posix(),
             export_params=True,
             opset_version=opset,

@@ -324,6 +324,11 @@ If you find Depth Anything 3 useful in your research or projects, please cite ou
 python src/depth_anything_3/export.py --model-dir depth-anything/DA3-BASE --height 504 --width 378 --onnx-path ../../onnx/DA3-BASE-portrait.onnx
 ```
 
+## Simplify model
+```
+onnxsim ../../onnx/DA3-SMALL-portrait-batch-2.onnx DA3-SMALL-portrait-batch-2-sim.onnx
+```
+
 
 ```
 @article{depthanything3,
